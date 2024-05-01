@@ -1,8 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import fastify from "fastify";
+import fastifyCors, { FastifyCorsOptions } from "@fastify/cors";
 import { z } from 'zod'
 
 const app = fastify();
+
+const corsOptions: FastifyCorsOptions =  {
+    origin: '*',
+    methods: 'OPTION, GET, HEAD, PUT, PATCH, POST, DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    exposedHeaders: 'Authorization'
+}
+
+app.register(fastifyCors, corsOptions);
 
 const prisma = new PrismaClient();
 
